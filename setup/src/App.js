@@ -22,9 +22,13 @@ function App() {
     setAge(e.target.value);
   }
 
-  const handleSubmit = () => {
-    const newdata = [...people, { id: id, name: name, age: age }];
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newdata = [...people, { id, name, age }]
     setPeople(newdata);
+    setID('');
+    setName('');
+    setAge('');
   }
 
   return (
@@ -36,7 +40,7 @@ function App() {
       </section>
 
       <section className='container'>
-        <h3>Form</h3>
+        <h3>Add More Birthdays!</h3>
         <form>
 
           <label>ID: </label>
@@ -51,7 +55,8 @@ function App() {
           <input type='text' value={age} required onChange={(e) => ageChange(e)} />
           <br />
 
-          <input type='submit' value="submit" onClick={handleSubmit} />
+          {/* <input type='submit' value="submit" onClick={(e) => handleSubmit(e)} /> */}
+          <button className='btn' type='submit' value="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
 
         </form>
       </section>
