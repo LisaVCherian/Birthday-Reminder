@@ -31,11 +31,32 @@ function App() {
     setAge('');
   }
 
+  const del = (id) => {
+    const newList = people.filter((p) => p.id !== id);
+    setPeople(newList);
+  }
+
+  const increase = (id) => {
+    let x = people.filter((p) => p.id === id)[0];
+    const newList = people.filter((p) => p.id !== id);
+    // x.age = Number(x.age) + 1;
+    x.age += 1;
+    newList.push(x);
+    setPeople(newList);
+  }
+
   return (
     <main>
       <section className='container'>
         <h3>{people.length} birthdays today</h3>
-        <List people={people} />
+        {/* <List people={people} /> */}
+
+
+        {people.map((p) => {
+          return <List key={p.id} {...p} del={del} increase={increase} />
+        })}
+
+
         <button onClick={() => setPeople([])}> Clear all </button>
       </section>
 
@@ -55,11 +76,13 @@ function App() {
           <input type='text' value={age} required onChange={(e) => ageChange(e)} />
           <br />
 
-          {/* <input type='submit' value="submit" onClick={(e) => handleSubmit(e)} /> */}
           <button className='btn' type='submit' value="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
 
         </form>
       </section>
+
+
+
     </main>
   );
 }
